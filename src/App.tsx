@@ -1,14 +1,42 @@
-import Footer from './components/footer';
-import Header from './components/header';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './reset.css';
-import UserTemplate from './templates/user-template';
+import Home from './pages/home';
+import ListProducts from './pages/list-products';
+import Details from './pages/details';
+import SearchProducts from './pages/search-result';
+import NotFound from './pages/not-found/indext';
 
 export default function App() {
+
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Home />
+    },
+    {
+      path: '/products',
+      element: <ListProducts />
+    },
+    {
+      path: '/products/details',
+      element: <Details />
+    },
+    {
+      path: '/products/search',
+      element: <SearchProducts />
+    },
+    {
+      path: '*',
+      element: <NotFound />
+    }
+  ]);
+
   return (
     <div>
-      <UserTemplate>
+      {/* <UserTemplate>
         <p>Oi</p>
-      </UserTemplate>
+      </UserTemplate> */}
+      <RouterProvider router={router} />
     </div>
   );
 }
