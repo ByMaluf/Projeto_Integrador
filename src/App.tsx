@@ -5,6 +5,7 @@ import ListProducts from './pages/list-products';
 import Details from './pages/details';
 import SearchProducts from './pages/search-result';
 import NotFound from './pages/not-found/indext';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export default function App() {
 
