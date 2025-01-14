@@ -6,6 +6,8 @@ import Details from './pages/details';
 import SearchProducts from './pages/search-result';
 import NotFound from './pages/not-found/indext';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import OurIdentity from './pages/ourIdentity';
+import UserTemplate from './templates/user-template';
 
 export default function App() {
 
@@ -25,6 +27,10 @@ export default function App() {
     {
       path: '/products/search',
       element: <SearchProducts />
+    },
+    {
+      path: '/identity',
+      element: <UserTemplate><OurIdentity /></UserTemplate>
     },
     {
       path: '*',
