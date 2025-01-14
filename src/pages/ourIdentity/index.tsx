@@ -28,7 +28,7 @@ export default function OurIdentity() {
           <li className="list-disc">Lorem ipsum dolor sit amet.</li>
         </ul>
 
-        <div className='flex justify-center'>
+        <div className='flex justify-center mt-[10px] mb-[92px]'>
           <img src={identity} alt="Identidade da loja" />
         </div>
       </section>
