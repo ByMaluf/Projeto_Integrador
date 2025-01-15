@@ -8,6 +8,9 @@ import NotFound from './pages/not-found/indext';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import OurIdentity from './pages/ourIdentity';
 import UserTemplate from './templates/user-template';
+import Login from './pages/login';
+import Register from './pages/register';
+import AuthTemplate from './templates/auth-template';
 
 export default function App() {
 
@@ -31,6 +34,14 @@ export default function App() {
     {
       path: '/identity',
       element: <UserTemplate><OurIdentity /></UserTemplate>
+    },
+    {
+      path: '/login',
+      element: <AuthTemplate><Login /></AuthTemplate>
+    },
+    {
+      path: '/register',
+      element: <AuthTemplate><Register /></AuthTemplate>
     },
     {
       path: '*',
