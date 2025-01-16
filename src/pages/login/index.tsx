@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import React from 'react';
 import * as Yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup"
+import { Link } from 'react-router-dom';
 
 type LoginForm = {
   email: string;
@@ -47,6 +48,10 @@ export default function Login() {
           {errors.password && <span className='text-red-700'>{errors.password.message}</span>}
         </React.Fragment>
         <button className='rounded-md mt-4 bg-primary w-full h-[40px] text-white' type='submit'>Entrar</button>
+
+        <div className='flex justify-center items-center'>
+          <Link className='mt-4' to={'/register'}><button className=''>Cadastre-se</button></Link>
+        </div>
       </form>
     </div>
   );
