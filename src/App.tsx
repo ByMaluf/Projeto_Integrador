@@ -11,6 +11,11 @@ import UserTemplate from './templates/user-template';
 import Login from './pages/login';
 import Register from './pages/register';
 import AuthTemplate from './templates/auth-template';
+import Dashboard from './pages/dashboard';
+import AdminTemplate from './templates/admin-template';
+import UserProducts from './pages/user-products';
+import ContactUs from './pages/contactUs';
+import FormProduct from './pages/form-product';
 
 export default function App() {
 
@@ -42,6 +47,22 @@ export default function App() {
     {
       path: '/register',
       element: <AuthTemplate><Register /></AuthTemplate>
+    },
+    {
+      path: '/dashboard',
+      element: <AdminTemplate><Dashboard /></AdminTemplate>
+    },
+    {
+      path: '/my-products',
+      element: <AdminTemplate><UserProducts /></AdminTemplate>
+    },
+    {
+      path: '/form-product',
+      element: <AdminTemplate><FormProduct /></AdminTemplate>
+    },
+    {
+      path: '/contact-us',
+      element: <AdminTemplate><ContactUs /></AdminTemplate>
     },
     {
       path: '*',
