@@ -1,4 +1,4 @@
-import CardProduct from '../../components/card-product/index';
+import CardProductAdmin from '../../components/card-product-admin';
 export default function UserProducts() {
   return (
     <div>
@@ -8,7 +8,7 @@ export default function UserProducts() {
       </div>
 
       <div className="grid grid-4 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2 gap-[10px]">
-        {Array.from({ length: 10 }).map(() => <CardProduct />)}
+        {Array.from({ length: 10 }).map(() => <CardProductAdmin />)}
       </div>
 
       <p className='text-right'>Total: 4 itens</p>
