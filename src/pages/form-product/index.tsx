@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 type ProductForm = {
   productName: string;
@@ -106,7 +107,10 @@ export default function FormProduct() {
           style={{ height: 500, marginTop: 10, marginBottom: 50 }}
           onChange={setValue}
         />
-        <button className='rounded-md mt-4 bg-primary w-full h-[40px] text-white' type='submit'>Cadastrar Produto</button>
+        <div className='text-right'>
+          <button className='rounded-md px-10 py-2 bg-primary text-white mr-5'>Salvar</button>
+          <Link to={'/my-products'}><button className='rounded-md px-10 py-2 border border-bg-primay'>Cancelar</button></Link>
+        </div>
       </form>
     </div>
   );
