@@ -8,6 +8,9 @@ import { IoFastFoodOutline, IoSearch } from "react-icons/io5";
 import { Carousel } from 'react-responsive-carousel';
 import Carousel1 from '../../assets/Carousel1.png'
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getApiRecentsProducts, getApiRecommendedsProducts } from "./services";
+import { Product } from "./types";
 
 const itensCategory = [
   {
@@ -50,6 +53,32 @@ const itensCategory = [
 export default function Home() {
 
   const navigate = useNavigate();
+  const [recentsProducts, setRecentsProducts] = useState<Product[]>([])
+  const [recommendedsProducts, setRecommendedsProducts] = useState<Product[]>([])
+
+  async function getRecentsProducts() {
+    try {
+      const response = await getApiRecentsProducts();
+      setRecentsProducts(response.data)
+    } catch (error) {
+      alert('Tem erro' + error)
+    }
+  }
+
+  async function getRecommededsProducts() {
+    try {
+      const response = await getApiRecommendedsProducts();
+      setRecommendedsProducts(response.data)
+    } catch (error) {
+      alert('Tem erro' + error)
+    }
+  }
+
+  useEffect(() => {
+    getRecentsProducts();
+    getRecommededsProducts();
+  }, [])
+
   return (
     <UserTemplate>
       <div className="max-w-[100%] self-center">
@@ -75,9 +104,18 @@ export default function Home() {
 
       <h2 className="mt-[50px]">Itens recentes</h2>
       <div className="flex flex-wrap justify-around">
-        {Array(4).fill(4).map((_, index) => (
+        {/* {Array(4).fill(4).map((_, index) => (
           <CardProduct key={index} />
-        ))}
+        ))} */}
+
+        {recentsProducts.map((product) =>
+          <CardProduct
+            key={product._id}
+            name={product.name}
+            manufacturer={product.manufacturer}
+            img={product.url1}
+            price={product.price} />
+        )}
       </div>
 
       <p className="mt-4">Ver mais</p>
@@ -98,9 +136,18 @@ export default function Home() {
 
       <h2 className="mt-[50px]">Anúncios</h2>
       <div className="flex flex-wrap justify-around">
-        {Array(4).fill(4).map((_, index) => (
+        {/* {Array(4).fill(4).map((_, index) => (
           <CardProduct key={index} />
-        ))}
+        ))} */}
+
+        {recommendedsProducts.map((product) =>
+          <CardProduct
+            key={product._id}
+            name={product.name}
+            manufacturer={product.manufacturer}
+            img={product.url1}
+            price={product.price} />
+        )}
       </div>
 
       <p className="mt-4">Ver mais</p>
