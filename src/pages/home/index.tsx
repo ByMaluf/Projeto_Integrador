@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getApiRecentsProducts, getApiRecommendedsProducts } from "./services";
 import { Product } from "./types";
+import ListLoading from '../../components/list-loading/index';
 
 const itensCategory = [
   {
@@ -55,28 +56,34 @@ export default function Home() {
   const navigate = useNavigate();
   const [recentsProducts, setRecentsProducts] = useState<Product[]>([])
   const [recommendedsProducts, setRecommendedsProducts] = useState<Product[]>([])
+  const [LoadingRecentsProducts, setLoadingRecentsProducts] = useState(false);
+  const [LoadingRecommendedsProducts, setLoadingRecommendedsProducts] = useState(false);
 
   async function getRecentsProducts() {
     try {
+      setLoadingRecentsProducts(true)
       const response = await getApiRecentsProducts();
       setRecentsProducts(response.data)
     } catch (error) {
       alert('Tem erro' + error)
     }
+    setLoadingRecentsProducts(false);
   }
 
-  async function getRecommededsProducts() {
+  async function getRecommendedsProducts() {
     try {
+      setLoadingRecommendedsProducts(true)
       const response = await getApiRecommendedsProducts();
       setRecommendedsProducts(response.data)
     } catch (error) {
       alert('Tem erro' + error)
     }
+    setLoadingRecommendedsProducts(false)
   }
 
   useEffect(() => {
     getRecentsProducts();
-    getRecommededsProducts();
+    getRecommendedsProducts();
   }, [])
 
   return (
@@ -103,11 +110,11 @@ export default function Home() {
       </div>
 
       <h2 className="mt-[50px]">Itens recentes</h2>
+      {LoadingRecentsProducts && <ListLoading />}
       <div className="flex flex-wrap justify-around">
         {/* {Array(4).fill(4).map((_, index) => (
           <CardProduct key={index} />
         ))} */}
-
         {recentsProducts.map((product) =>
           <CardProduct
             key={product._id}
@@ -135,6 +142,7 @@ export default function Home() {
       </div>
 
       <h2 className="mt-[50px]">Anúncios</h2>
+      {LoadingRecommendedsProducts && <ListLoading />}
       <div className="flex flex-wrap justify-around">
         {/* {Array(4).fill(4).map((_, index) => (
           <CardProduct key={index} />
