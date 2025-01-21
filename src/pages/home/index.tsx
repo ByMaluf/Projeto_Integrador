@@ -125,7 +125,9 @@ export default function Home() {
         )}
       </div>
 
-      <p className="mt-4">Ver mais</p>
+      <Link to={'/all-recents-products'}>
+        <p className="mt-4">Ver todos os produtos recentes</p>
+      </Link>
 
       <div className="bg-primary p-10 rounded-lg mt-[50px]">
         <h2 className="text-white text-[20px] mb-5">Categorias</h2>
@@ -157,8 +159,9 @@ export default function Home() {
             price={product.price} />
         )}
       </div>
-
-      <p className="mt-4">Ver mais</p>
+      <Link to={'/all-products'}>
+        <p className="mt-4">Ver todos os produtos</p>
+      </Link>
     </UserTemplate >
   );
 }

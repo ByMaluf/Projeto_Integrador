@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './reset.css';
 import Home from './pages/home';
-import ListProducts from './pages/list-products';
+import ListRecentsProducts from './pages/list-recents-products';
 import Details from './pages/details';
 import SearchProducts from './pages/search-result';
 import NotFound from './pages/not-found/indext';
@@ -16,6 +16,7 @@ import AdminTemplate from './templates/admin-template';
 import UserProducts from './pages/user-products';
 import ContactUs from './pages/contactUs';
 import FormProduct from './pages/form-product';
+import ListAllProducts from './pages/list-all-products';
 
 export default function App() {
 
@@ -25,8 +26,12 @@ export default function App() {
       element: <Home />
     },
     {
-      path: '/products',
-      element: <ListProducts />
+      path: '/all-recents-products',
+      element: <ListRecentsProducts />
+    },
+    {
+      path: '/all-products',
+      element: <ListAllProducts />
     },
     {
       path: '/products/details',
