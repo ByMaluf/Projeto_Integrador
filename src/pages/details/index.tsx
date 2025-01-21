@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getApiDetailsProducts } from "./service";
 import { Product } from './types';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Details() {
-
-
   const params = useParams();
   const id = params?.id;
 
@@ -17,21 +17,22 @@ export default function Details() {
   async function getDetailsProducts() {
     setLoadingProducts(true);
     try {
-      const reponse = await getApiDetailsProducts(id!);
-      setDetailsProducts(reponse.data);
-      console.log(detailsProducts)
+      const response = await getApiDetailsProducts(id!);
+      setDetailsProducts(response.data);
+      console.log(detailsProducts);
     } catch (error) {
-      alert('Deu erro' + error)
+      toast.error('Erro ao carregar os detalhes do produto: ' + error.message);
     }
-    setLoadingProducts(false)
+    setLoadingProducts(false);
   }
 
   useEffect(() => {
     getDetailsProducts();
-  }, [])
+  }, []);
 
   return (
     <UserTemplate>
+      <ToastContainer />
       <h1 className="text-[30px]">{detailsProducts.name}</h1>
       <div className="flex mt-10 gap-10 justify-center">
         <div className="w-[40%]">

@@ -4,10 +4,12 @@ import UserTemplate from "../../templates/user-template";
 import { getApiAllProductsRecents } from './service';
 import { Product } from "./types";
 import ListLoading from "../../components/list-loading";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ListRecentsProducts() {
 
-  const [allRecentsProducts, setAllRecentsProducts] = useState<Product[]>([])
+  const [allRecentsProducts, setAllRecentsProducts] = useState<Product[]>([]);
   const [LoadingAllRecentsProducts, setAllLoadingRecentsProducts] = useState(false);
 
   async function getAllRecentsProducts() {
@@ -16,18 +18,19 @@ export default function ListRecentsProducts() {
       const response = await getApiAllProductsRecents();
       setAllRecentsProducts(response.data);
     } catch (error) {
-      alert('Deu erro' + error)
+      toast.error('Erro ao carregar os itens recentes: ' + error.message);
     }
     setAllLoadingRecentsProducts(false);
   }
 
   useEffect(() => {
     getAllRecentsProducts();
-  }, [])
+  }, []);
 
   return (
     <UserTemplate>
-      <h1>Itens Recents</h1>
+      <ToastContainer />
+      <h1>Itens Recentes</h1>
       {LoadingAllRecentsProducts && <ListLoading />}
       <div className="grid grid-4 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2 gap-[10px]">
         {allRecentsProducts.map((product) =>

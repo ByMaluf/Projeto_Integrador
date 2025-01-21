@@ -1,4 +1,5 @@
 import UserTemplate from "../../templates/user-template";
+import { toast, ToastContainer } from 'react-toastify';
 import CardProduct from '../../components/card-product/index';
 import { LuGamepad2 } from "react-icons/lu";
 import { GiClothes } from "react-icons/gi";
@@ -67,7 +68,7 @@ export default function Home() {
       const response = await getApiRecentsProducts();
       setRecentsProducts(response.data)
     } catch (error) {
-      alert('Tem erro' + error)
+      toast.error('Erro ao carregar produtos recentes: ' + error.message);
     }
     setLoadingRecentsProducts(false);
   }
@@ -78,7 +79,7 @@ export default function Home() {
       const response = await getApiRecommendedsProducts();
       setRecommendedsProducts(response.data)
     } catch (error) {
-      alert('Tem erro' + error)
+      toast.error('Erro ao carregar produtos recomendados: ' + error.message);
     }
     setLoadingRecommendedsProducts(false)
   }
@@ -166,6 +167,7 @@ export default function Home() {
       <Link to={'/all-products'}>
         <p className="mt-4">Ver todos os produtos</p>
       </Link>
+      <ToastContainer />
     </UserTemplate >
   );
 }
