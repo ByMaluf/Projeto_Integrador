@@ -55,6 +55,8 @@ export default function Home() {
 
   const navigate = useNavigate();
   const [recentsProducts, setRecentsProducts] = useState<Product[]>([])
+  const [inputSearch, setInputSearch] = useState("");
+
   const [recommendedsProducts, setRecommendedsProducts] = useState<Product[]>([])
   const [LoadingRecentsProducts, setLoadingRecentsProducts] = useState(false);
   const [LoadingRecommendedsProducts, setLoadingRecommendedsProducts] = useState(false);
@@ -102,8 +104,8 @@ export default function Home() {
         </Carousel>
 
         <div className="flex border-2 h-[45px] rounded-md items-center mt-10">
-          <input type="text" className="flex-1 h-full p-3" placeholder="Estou buscando por..." />
-          <button onClick={() => navigate('/products/search')} className="px-4">
+          <input onChange={(e) => setInputSearch(e?.target.value)} type="text" className="flex-1 h-full p-3" placeholder="Estou buscando por..." />
+          <button onClick={() => navigate(`/products/search/${inputSearch}`)} className="px-4">
             <IoSearch size={30} />
           </button>
         </div>
