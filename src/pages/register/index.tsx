@@ -2,15 +2,10 @@ import * as Yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useForm } from 'react-hook-form';
 import React from 'react';
+import { RegisterForm } from './type';
+import { registerUser } from './service';
+import { toast, ToastContainer } from 'react-toastify';
 
-type RegisterForm = {
-  name: string;
-  email: string;
-  phone: string;
-  city: string;
-  state: string;
-  password: string;
-}
 
 const schemaValidation = Yup.object().shape({
   name: Yup.string().required('O campo é obrigatório'),
@@ -23,14 +18,21 @@ const schemaValidation = Yup.object().shape({
 
 export default function Register() {
 
-  const { register, handleSubmit, formState: { errors } } = useForm<RegisterForm>({ resolver: yupResolver(schemaValidation) });
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<RegisterForm>({ resolver: yupResolver(schemaValidation) });
 
-  function createUser(values: RegisterForm) {
-    console.log(values)
+  async function createUser(values: RegisterForm) {
+    try {
+      const value = await registerUser(values);
+      reset();
+      toast.success('Usuário cadastrado com sucesso!')
+    } catch (error) {
+      toast.error('Erro ao cadastrar usuário: ' + error.message);
+    }
   }
 
   return (
     <div>
+      <ToastContainer />
       <form className='shadow-lg p-5 rounded-lg max-w-[500px]' onSubmit={handleSubmit(createUser)}>
         <h1 className='text-center text-[25px] font-bold'>UnyBay</h1>
         <p className='text-center my-3'>Cadastre-se</p>
@@ -94,7 +96,7 @@ export default function Register() {
           />
           {errors.password && <span className='text-red-700'>{errors.password.message}</span>}
         </React.Fragment>
-        <button className='rounded-md mt-4 bg-primary w-full h-[40px] text-white' type='submit'>Entrar</button>
+        <button className='rounded-md mt-4 bg-primary w-full h-[40px] text-white' type='submit'>Cadastrar</button>
       </form>
     </div>
   );
