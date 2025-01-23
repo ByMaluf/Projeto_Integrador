@@ -17,6 +17,7 @@ import UserProducts from './pages/user-products';
 import ContactUs from './pages/contactUs';
 import FormProduct from './pages/form-product';
 import ListAllProducts from './pages/list-all-products';
+import { ToastContainer } from 'react-toastify';
 
 export default function App() {
 
@@ -77,6 +78,7 @@ export default function App() {
 
   return (
     <div>
+      <ToastContainer />
       {/* <UserTemplate>
         <p>Oi</p>
       </UserTemplate> */}

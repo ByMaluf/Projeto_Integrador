@@ -1,3 +1,4 @@
+import { toast, ToastContainer } from 'react-toastify';
 import CardProduct from '../../components/card-product/index';
 import { LuGamepad2 } from "react-icons/lu";
 import { GiClothes } from "react-icons/gi";
@@ -7,6 +8,11 @@ import { IoFastFoodOutline, IoSearch } from "react-icons/io5";
 import { Carousel } from 'react-responsive-carousel';
 import Carousel1 from '../../assets/Carousel1.png'
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getApiRecentsProducts, getApiRecommendedsProducts } from "./services";
+import { Product } from "./types";
+import ListLoading from '../../components/list-loading/index';
+import AdminTemplate from "../../templates/admin-template";
 
 const itensCategory = [
   {
@@ -49,9 +55,42 @@ const itensCategory = [
 export default function Dashboard() {
 
   const navigate = useNavigate();
+  const [recentsProducts, setRecentsProducts] = useState<Product[]>([])
+  const [inputSearch, setInputSearch] = useState("");
+
+  const [recommendedsProducts, setRecommendedsProducts] = useState<Product[]>([])
+  const [LoadingRecentsProducts, setLoadingRecentsProducts] = useState(false);
+  const [LoadingRecommendedsProducts, setLoadingRecommendedsProducts] = useState(false);
+
+  async function getRecentsProducts() {
+    try {
+      setLoadingRecentsProducts(true)
+      const response = await getApiRecentsProducts();
+      setRecentsProducts(response.data)
+    } catch (error) {
+      toast.error('Erro ao carregar produtos recentes: ' + error.message);
+    }
+    setLoadingRecentsProducts(false);
+  }
+
+  async function getRecommendedsProducts() {
+    try {
+      setLoadingRecommendedsProducts(true)
+      const response = await getApiRecommendedsProducts();
+      setRecommendedsProducts(response.data)
+    } catch (error) {
+      toast.error('Erro ao carregar produtos recomendados: ' + error.message);
+    }
+    setLoadingRecommendedsProducts(false)
+  }
+
+  useEffect(() => {
+    getRecentsProducts();
+    getRecommendedsProducts();
+  }, [])
+
   return (
     <>
-
       <div className="max-w-[100%] self-center">
         <Carousel showThumbs={false}>
           <div>
@@ -66,21 +105,33 @@ export default function Dashboard() {
         </Carousel>
 
         <div className="flex border-2 h-[45px] rounded-md items-center mt-10">
-          <input type="text" className="flex-1 h-full p-3" placeholder="Estou buscando por..." />
-          <button onClick={() => navigate('/products/search')} className="px-4">
+          <input onChange={(e) => setInputSearch(e?.target.value)} type="text" className="flex-1 h-full p-3" placeholder="Estou buscando por..." />
+          <button onClick={() => navigate(`/products/search/${inputSearch}`)} className="px-4">
             <IoSearch size={30} />
           </button>
         </div>
       </div>
 
       <h2 className="mt-[50px]">Itens recentes</h2>
+      {LoadingRecentsProducts && <ListLoading />}
       <div className="flex flex-wrap justify-around">
-        {Array(4).fill(4).map((_, index) => (
+        {/* {Array(4).fill(4).map((_, index) => (
           <CardProduct key={index} />
-        ))}
+        ))} */}
+        {recentsProducts.map((product) =>
+          <CardProduct
+            key={product._id}
+            id={product._id}
+            name={product.name}
+            manufacturer={product.manufacturer}
+            img={product.url1}
+            price={product.price} />
+        )}
       </div>
 
-      <p className="mt-4">Ver mais</p>
+      <Link to={'/all-recents-products'}>
+        <p className="mt-4">Ver todos os produtos recentes</p>
+      </Link>
 
       <div className="bg-primary p-10 rounded-lg mt-[50px]">
         <h2 className="text-white text-[20px] mb-5">Categorias</h2>
@@ -97,13 +148,26 @@ export default function Dashboard() {
       </div>
 
       <h2 className="mt-[50px]">Anúncios</h2>
+      {LoadingRecommendedsProducts && <ListLoading />}
       <div className="flex flex-wrap justify-around">
-        {Array(4).fill(4).map((_, index) => (
+        {/* {Array(4).fill(4).map((_, index) => (
           <CardProduct key={index} />
-        ))}
-      </div>
+        ))} */}
 
-      <p className="mt-4">Ver mais</p>
-    </>
+        {recommendedsProducts.map((product) =>
+          <CardProduct
+            key={product._id}
+            id={product._id}
+            name={product.name}
+            manufacturer={product.manufacturer}
+            img={product.url1}
+            price={product.price} />
+        )}
+      </div>
+      <Link to={'/all-products'}>
+        <p className="mt-4">Ver todos os produtos</p>
+      </Link>
+      <ToastContainer />
+    </ >
   );
 }

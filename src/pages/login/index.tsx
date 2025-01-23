@@ -2,7 +2,9 @@ import { useForm } from 'react-hook-form';
 import React from 'react';
 import * as Yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth } from './service';
+import { toast, ToastContainer } from 'react-toastify';
 
 type LoginForm = {
   email: string;
@@ -14,16 +16,27 @@ const schemaValidation = Yup.object().shape({
   password: Yup.string().min(4, 'A senha deve ter no mínimo 4 caracteres.').required('O campo é obrigatório.')
 })
 
+
 export default function Login() {
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({ resolver: yupResolver(schemaValidation) });
+  const navigate = useNavigate();
 
-  function logar(values: LoginForm) {
-    console.log(values);
+  async function logar(values: LoginForm) {
+    try {
+      await auth(values.email, values.password);
+      toast.success('Login feito com sucesso');
+      navigate('/dashboard')
+      setTimeout(() => {
+      }, 1000)
+    } catch (error) {
+      toast.error('Erro ao fazer login: ' + error);
+    }
   }
 
   return (
     <div>
+      <ToastContainer />
       <form className='shadow-lg p-5 rounded-lg max-w-[500px]' onSubmit={handleSubmit(logar)}>
         <h1 className='text-center text-[25px] font-bold'>UnyBay</h1>
         <p className='text-center my-3'>acesse sua conta</p>
