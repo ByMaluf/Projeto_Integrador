@@ -3,6 +3,7 @@ import img_product from '../../assets/product.png';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import Modal from 'react-modal';
 import { useState } from 'react';
+import { CardProps } from './types';
 
 const customStyles = {
   content: {
@@ -21,7 +22,7 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-export default function CardProductAdmin() {
+export default function CardProductAdmin(props: CardProps) {
   const navigate = useNavigate();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -39,12 +40,12 @@ export default function CardProductAdmin() {
   return (
     <div>
       <Link to={'/products/details'} className='shadow-md rounded-md p-6 flex flex-col justify-center items-center'>
-        <h1 className=''>Nome do Produto</h1>
-        <img src={img_product} alt="Produto" className='w-[100px] mt-2' />
+        <h1 className=''>{props.name}</h1>
+        <img src={props.img} alt="Produto" className='w-[100px] mt-2' />
 
         <div className='flex gap-3 flex-col'>
           <div className='flex items-center justify-between'>
-            <p className='w-full'>Amazon</p>
+            <p className='w-full'>{props.manufacturer}</p>
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -55,7 +56,7 @@ export default function CardProductAdmin() {
             </button>
           </div>
           <div className='flex items-center justify-between'>
-            <p className='w-full text-[24px]'>R$ 799,99</p>
+            <p className='w-full text-[24px]'>{props.price}</p>
             <button onClick={(e) => {
               e.preventDefault();
               e.stopPropagation()

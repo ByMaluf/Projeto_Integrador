@@ -1,6 +1,32 @@
 import { Link } from 'react-router-dom';
 import CardProductAdmin from '../../components/card-product-admin';
+import { getApiMyProducts } from './services';
+import { useAuthSessionStore } from '../../hooks/use-auth-session';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { Product } from './types';
 export default function UserProducts() {
+
+  const [myProducts, setMyProducts] = useState<Product[]>([]);
+  const [LoadingMyProducts, setLoadingMyProducts] = useState(false);
+  const { token } = useAuthSessionStore()
+
+
+  async function getMyProducts() {
+    try {
+      setLoadingMyProducts(true);
+      const response = await getApiMyProducts(token);
+      setMyProducts(response.data);
+    } catch (error) {
+      toast.error('Erro ao buscar produtos do usuário ' + error.message);
+    }
+    setLoadingMyProducts(false);
+  }
+
+  useEffect(() => {
+    getMyProducts();
+  }, [])
+
   return (
     <div>
       <div className='flex justify-between items-center'>
@@ -9,10 +35,16 @@ export default function UserProducts() {
       </div>
 
       <div className="grid grid-4 lg:grid-cols-6 md:grid-cols-3 sm:grid-cols-2 gap-[10px]">
-        {Array.from({ length: 10 }).map(() => <CardProductAdmin />)}
+        {myProducts.map((product) => <CardProductAdmin
+          id={product._id}
+          img={product.url1}
+          name={product.name}
+          price={product.price}
+          manufacturer={product.manufacturer}
+        />)}
       </div>
 
-      <p className='text-right'>Total: 4 itens</p>
+      <p className='text-right'>Total: {myProducts.length}</p>
     </div>
   );
 }

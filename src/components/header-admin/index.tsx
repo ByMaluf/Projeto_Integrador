@@ -11,7 +11,7 @@ export default function HeaderAdmin() {
           <Link to={'/'}><button className="">Sair</button></Link>
         </li>
         <li>
-          <Link to={'#'}><button className="bg-white px-8 py-2 rounded-md transition-all text-secondary">Anunciar</button></Link>
+          <Link to={'/my-products'}><button className="bg-white px-8 py-2 rounded-md transition-all text-secondary">Anunciar</button></Link>
         </li>
       </ul>
     </div>
