@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from './service';
 import { toast, ToastContainer } from 'react-toastify';
+import { useAuthSessionStore } from '../../hooks/use-auth-session';
 
 type LoginForm = {
   email: string;
@@ -20,11 +21,13 @@ const schemaValidation = Yup.object().shape({
 export default function Login() {
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({ resolver: yupResolver(schemaValidation) });
+  const { setToken } = useAuthSessionStore()
   const navigate = useNavigate();
 
   async function logar(values: LoginForm) {
     try {
-      await auth(values.email, values.password);
+      const response = await auth(values.email, values.password);
+      setToken(response.data?.token)
       toast.success('Login feito com sucesso');
       navigate('/dashboard')
       setTimeout(() => {
