@@ -72,7 +72,7 @@ export default function FormProductEdit() {
 
   async function handleEditProduct(values: ProductForm) {
     try {
-      const response = await editApiProduct({ ...values, description: editorValue }, token, id!);
+      await editApiProduct({ ...values, description: editorValue }, token, id!);
       toast.success('Produto atualizado com sucesso');
     } catch (error) {
       toast.error('Erro ao atualizar produto: ' + error);
