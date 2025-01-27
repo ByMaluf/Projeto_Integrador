@@ -6,6 +6,7 @@ import { getApiDetailsProducts } from "./service";
 import { Product } from './types';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { formatPrice } from "../../utils/format-price";
 
 export default function Details() {
   const params = useParams();
@@ -49,13 +50,13 @@ export default function Details() {
         <div>
           <div className="shadow-sm bg-white px-10 py-2">
             <p>Informações do Vendedor</p>
-            <p>Wesley Bruno Barbosa Silva</p>
-            <p>Porteirinha MG</p>
-            <p>Email: email@gmail.com</p>
-            <p>Telefone: (67 91111-1111)</p>
+            <p>{detailsProducts.user?.name ?? ''}</p>
+            <p>{detailsProducts.user?.city} {detailsProducts.user?.state}</p>
+            <p>Email: {detailsProducts.user?.email}</p>
+            <p>Telefone: {detailsProducts.user?.phone}</p>
           </div>
           <div className="shadow-sm mt-4 bg-white px-10 py-2">
-            <p className="text-[30px]">R$ {detailsProducts.price} </p>
+            <p className="text-[30px]">{formatPrice(detailsProducts.price)} </p>
           </div>
         </div>
       </div>

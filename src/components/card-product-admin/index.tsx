@@ -53,7 +53,7 @@ export default function CardProductAdmin(props: CardProps) {
 
   return (
     <div>
-      <Link to={'/products/details'} className='shadow-md rounded-md p-6 flex flex-col justify-center items-center'>
+      <Link to={`/products/details/${props.id!}`} className='shadow-md rounded-md p-6 flex flex-col justify-between items-center h-[100%]'>
         <h1 className=''>{props.name}</h1>
         <img src={props.img} alt="Produto" className='w-[100px] mt-2' />
 
