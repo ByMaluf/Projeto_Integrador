@@ -14,7 +14,7 @@ const schemaValidation = Yup.object().shape({
   name: Yup.string().required('O nome do produto é obrigatório.'),
   manufacturer: Yup.string().required('O fabricante é obrigatório.'),
   category: Yup.string().required('A categoria é obrigatória.'),
-  price: Yup.number().required('O preço é obrigatório.').positive('O preço deve ser um número positivo.'),
+  price: Yup.number().required('O preço é obrigatório.').positive('O preço deve ser um valor numérico.'),
   url1: Yup.string().url('Digite uma URL válida para a imagem.').required('A URL da imagem é obrigatória.'),
   url2: Yup.string().url('Digite uma URL válida para a segunda imagem.').required('A URL da segunda imagem é obrigatória.'),
 });
