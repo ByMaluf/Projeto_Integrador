@@ -18,6 +18,7 @@ import ContactUs from './pages/contactUs';
 import FormProduct from './pages/form-product';
 import ListAllProducts from './pages/list-all-products';
 import { ToastContainer } from 'react-toastify';
+import FormProductEdit from './pages/form-product-edit';
 
 export default function App() {
 
@@ -65,6 +66,9 @@ export default function App() {
     {
       path: '/form-product',
       element: <AdminTemplate><FormProduct /></AdminTemplate>
+    }, {
+      path: '/form-product-edit/:id',
+      element: <AdminTemplate><FormProductEdit /></AdminTemplate>
     },
     {
       path: '/contact-us',

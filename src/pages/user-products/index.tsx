@@ -41,6 +41,7 @@ export default function UserProducts() {
           name={product.name}
           price={product.price}
           manufacturer={product.manufacturer}
+          setMyProducts={setMyProducts}
         />)}
       </div>
 

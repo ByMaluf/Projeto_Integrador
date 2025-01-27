@@ -4,6 +4,10 @@ import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import Modal from 'react-modal';
 import { useState } from 'react';
 import { CardProps } from './types';
+import { removeApiProduct } from './service';
+import { toast } from 'react-toastify';
+import { useAuthSessionStore } from '../../hooks/use-auth-session';
+import { getApiMyProducts } from '../../pages/user-products/services';
 
 const customStyles = {
   content: {
@@ -24,8 +28,8 @@ Modal.setAppElement('#root');
 
 export default function CardProductAdmin(props: CardProps) {
   const navigate = useNavigate();
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const { token } = useAuthSessionStore();
 
   function openModal() {
     setModalIsOpen(true);
@@ -35,6 +39,17 @@ export default function CardProductAdmin(props: CardProps) {
   function closeModal() {
     setModalIsOpen(false);
     document.body.style.overflow = 'auto';
+  }
+
+  async function removeProduct() {
+    try {
+      await removeApiProduct(props.id!, token);
+      const response = await getApiMyProducts(token);
+      props.setMyProducts(response.data);
+      toast.success('Produto excluído com sucesso!')
+    } catch (error) {
+      toast.error('Não foi possível excluir o produto.' + error)
+    }
   }
 
   return (
@@ -49,7 +64,7 @@ export default function CardProductAdmin(props: CardProps) {
             <button
               onClick={(e) => {
                 e.preventDefault();
-                navigate('/form-product');
+                navigate(`/form-product-edit/${props.id}`);
               }}
             >
               <AiOutlineEdit size={25} />
@@ -80,6 +95,7 @@ export default function CardProductAdmin(props: CardProps) {
           <div className='text-center'>
             <button className='rounded-md px-10 py-2 bg-primary text-white mr-5' onClick={closeModal}>Não</button>
             <button className='rounded-md px-10 py-2 border border-bg-primay' onClick={() => {
+              removeProduct();
               closeModal();
             }}>Sim</button>
           </div>
