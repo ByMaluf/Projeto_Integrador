@@ -18,7 +18,7 @@ export default function ListRecentsProducts() {
       const response = await getApiAllProductsRecents();
       setAllRecentsProducts(response.data);
     } catch (error) {
-      toast.error('Erro ao carregar os itens recentes: ' + error.message);
+      toast.error('Erro ao carregar os itens recentes: ' + error);
     }
     setAllLoadingRecentsProducts(false);
   }

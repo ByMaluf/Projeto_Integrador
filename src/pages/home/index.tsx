@@ -76,7 +76,7 @@ export default function Home() {
       const response = await getApiRecentsProducts();
       setRecentsProducts(response.data)
     } catch (error) {
-      toast.error('Erro ao carregar produtos recentes: ' + error.message);
+      toast.error('Erro ao carregar produtos recentes: ' + error);
     }
     setLoadingRecentsProducts(false);
   }
@@ -87,7 +87,7 @@ export default function Home() {
       const response = await getApiRecommendedsProducts();
       setRecommendedsProducts(response.data)
     } catch (error) {
-      toast.error('Erro ao carregar produtos recomendados: ' + error.message);
+      toast.error('Erro ao carregar produtos recomendados: ' + error);
     }
     setLoadingRecommendedsProducts(false)
   }

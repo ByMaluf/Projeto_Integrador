@@ -22,11 +22,11 @@ export default function Register() {
 
   async function createUser(values: RegisterForm) {
     try {
-      const value = await registerUser(values);
+      await registerUser(values);
       reset();
       toast.success('Usuário cadastrado com sucesso!')
     } catch (error) {
-      toast.error('Erro ao cadastrar usuário: ' + error.message);
+      toast.error('Erro ao cadastrar usuário: ' + error);
     }
   }
 

@@ -21,7 +21,7 @@ export default function SearchProduct() {
       const response = await getApiProductsByName(nameProduct!);
       setAllProducts(response.data);
     } catch (error) {
-      toast.error('Erro ao buscar os produtos: ' + error.message);
+      toast.error('Erro ao buscar os produtos: ' + error);
     }
     setLoadingProducts(false);
   }

@@ -18,7 +18,7 @@ export default function ListAllProducts() {
       const response = await getApiAllProducts();
       setAllProducts(response.data);
     } catch (error) {
-      toast.error('Erro ao carregar todos os produtos: ' + error.message);
+      toast.error('Erro ao carregar todos os produtos: ' + error);
     }
     setAllLoadingProducts(false);
   }
@@ -30,7 +30,7 @@ export default function ListAllProducts() {
       const response = await getApiAllProductsOrdered(typeOrder);
       setAllProducts(response.data);
     } catch (error) {
-      toast.error('Erro ao ordenar os produtos: ' + error.message);
+      toast.error('Erro ao ordenar os produtos: ' + error);
     }
     setAllLoadingProducts(false);
   }

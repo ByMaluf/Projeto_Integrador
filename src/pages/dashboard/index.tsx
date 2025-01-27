@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 import { getApiRecentsProducts, getApiRecommendedsProducts } from "./services";
 import { Product } from "./types";
 import ListLoading from '../../components/list-loading/index';
-import AdminTemplate from "../../templates/admin-template";
 
 const itensCategory = [
   {
@@ -68,7 +67,7 @@ export default function Dashboard() {
       const response = await getApiRecentsProducts();
       setRecentsProducts(response.data)
     } catch (error) {
-      toast.error('Erro ao carregar produtos recentes: ' + error.message);
+      toast.error('Erro ao carregar produtos recentes: ' + error);
     }
     setLoadingRecentsProducts(false);
   }
@@ -79,7 +78,7 @@ export default function Dashboard() {
       const response = await getApiRecommendedsProducts();
       setRecommendedsProducts(response.data)
     } catch (error) {
-      toast.error('Erro ao carregar produtos recomendados: ' + error.message);
+      toast.error('Erro ao carregar produtos recomendados: ' + error);
     }
     setLoadingRecommendedsProducts(false)
   }

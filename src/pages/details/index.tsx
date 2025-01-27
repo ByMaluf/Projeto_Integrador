@@ -13,18 +13,18 @@ export default function Details() {
   const id = params?.id;
 
   const [detailsProducts, setDetailsProducts] = useState<Product>({} as Product);
-  const [LoadingProducts, setLoadingProducts] = useState(false);
+  // const [LoadingProducts, setLoadingProducts] = useState(false);
 
   async function getDetailsProducts() {
-    setLoadingProducts(true);
+    // setLoadingProducts(true);
     try {
       const response = await getApiDetailsProducts(id!);
       setDetailsProducts(response.data);
       console.log(detailsProducts);
     } catch (error) {
-      toast.error('Erro ao carregar os detalhes do produto: ' + error.message);
+      toast.error('Erro ao carregar os detalhes do produto: ' + error);
     }
-    setLoadingProducts(false);
+    // setLoadingProducts(false);
   }
 
   useEffect(() => {

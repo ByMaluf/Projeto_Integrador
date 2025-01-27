@@ -8,19 +8,19 @@ import { Product } from './types';
 export default function UserProducts() {
 
   const [myProducts, setMyProducts] = useState<Product[]>([]);
-  const [LoadingMyProducts, setLoadingMyProducts] = useState(false);
+  // const [LoadingMyProducts, setLoadingMyProducts] = useState(false);
   const { token } = useAuthSessionStore()
 
 
   async function getMyProducts() {
     try {
-      setLoadingMyProducts(true);
+      // setLoadingMyProducts(true);
       const response = await getApiMyProducts(token);
       setMyProducts(response.data);
     } catch (error) {
-      toast.error('Erro ao buscar produtos do usuário ' + error.message);
+      toast.error('Erro ao buscar produtos do usuário ' + error);
     }
-    setLoadingMyProducts(false);
+    // setLoadingMyProducts(false);
   }
 
   useEffect(() => {
