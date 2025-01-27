@@ -26,7 +26,7 @@ export default function FormProduct() {
 
   async function createProduct(values: ProductForm) {
     try {
-      const response = await saveApiProduct({ ...values, description: value }, token);
+      await saveApiProduct({ ...values, description: value }, token);
       toast.success('Produto cadastrado com sucesso');
     } catch (error) {
       toast.error('Não foi possível cadastrar o Produto.' + error)
