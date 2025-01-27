@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { getApiRecentsProducts, getApiRecommendedsProducts } from "./services";
 import { Product } from "./types";
 import ListLoading from '../../components/list-loading/index';
+import { useAuthSessionStore } from "../../hooks/use-auth-session";
 
 const itensCategory = [
   {
@@ -54,6 +55,7 @@ const itensCategory = [
 
 export default function Home() {
 
+  const { token } = useAuthSessionStore();
   const navigate = useNavigate();
   const [recentsProducts, setRecentsProducts] = useState<Product[]>([])
   const [inputSearch, setInputSearch] = useState("");
@@ -61,6 +63,12 @@ export default function Home() {
   const [recommendedsProducts, setRecommendedsProducts] = useState<Product[]>([])
   const [LoadingRecentsProducts, setLoadingRecentsProducts] = useState(false);
   const [LoadingRecommendedsProducts, setLoadingRecommendedsProducts] = useState(false);
+
+  useEffect(() => {
+    if (token) {
+      navigate('/dashboard')
+    }
+  }, []);
 
   async function getRecentsProducts() {
     try {

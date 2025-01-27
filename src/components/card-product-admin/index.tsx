@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import img_product from '../../assets/product.png';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import Modal from 'react-modal';
 import { useState } from 'react';

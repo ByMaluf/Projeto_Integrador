@@ -5,7 +5,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { saveApiProduct } from './service';
+import { editApiProduct } from './service';
 import { toast, ToastContainer } from 'react-toastify';
 import { useAuthSessionStore } from '../../hooks/use-auth-session';
 import { ProductForm } from './type';
@@ -72,7 +72,7 @@ export default function FormProductEdit() {
 
   async function handleEditProduct(values: ProductForm) {
     try {
-      const response = await saveApiProduct({ ...values, description: editorValue }, token);
+      const response = await editApiProduct({ ...values, description: editorValue }, token, id!);
       toast.success('Produto atualizado com sucesso');
     } catch (error) {
       toast.error('Erro ao atualizar produto: ' + error);
@@ -160,7 +160,7 @@ export default function FormProductEdit() {
           onChange={setEditorValue}
         />
 
-        <div className='text-right'>
+        <div className='text-right mt-14'>
           <button type='submit' className='rounded-md px-10 py-2 bg-primary text-white mr-5'>
             Salvar
           </button>

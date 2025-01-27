@@ -1,9 +1,13 @@
 import api from "../../services/api";
 import { ProductForm } from "./type";
 
-export async function saveApiProduct(body: ProductForm, token: string) {
-  return api.post(
-    "/products",
+export async function editApiProduct(
+  body: ProductForm,
+  token: string,
+  id: string
+) {
+  return api.put(
+    `/products/${id}`,
     {
       name: body.name,
       manufacturer: body.manufacturer,
